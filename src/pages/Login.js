@@ -29,21 +29,21 @@ const Login = () => {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen auth-bg px-4">
-            <div className="w-full max-w-md p-8 glass rounded-3xl shadow-2xl relative overflow-hidden group">
+        <div className="flex items-center justify-center min-h-screen">
+            <div className="w-full max-w-md p-8 glass rounded-3xl relative overflow-hidden group">
                 {/* Decorative background glow */}
 
                 <div className="text-center mb-10">
                     
-                    <h1 className="text-4xl font-black text-slate-900 tracking-tight">Welcome Back</h1>
-                    <p className="text-slate-500 mt-3 font-medium text-lg">
+                    <h1 className="text-2xl font-black text-slate-900">Welcome Back</h1>
+                    <p className="text-slate-500 mt-3 font-medium text-md">
                         Sign in to <span className="text-blue-600 font-bold">Money Manager</span>
                     </p>
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div>
-                        <label className="block text-sm font-bold text-slate-700 mb-2.5 ml-1">Email Address</label>
+                        <label className="block text-sm font-bold mb-2.5 ml-1">Email Address</label>
                         <div className="relative">
                             <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
                             <input
@@ -58,8 +58,8 @@ const Login = () => {
                     </div>
 
                     <div>
-                        <div className="flex justify-between items-center mb-2.5 ml-1">
-                            <label className="block text-sm font-bold text-slate-700">Password</label>
+                        <div className="flex justify-between items-center mb-2.5">
+                            <label className="block text-sm font-bold">Password</label>
                             <Link to="/forgot-password" core className="text-sm font-bold text-blue-600 hover:text-blue-700 hover:underline">
                                 Forgot password?
                             </Link>
@@ -86,7 +86,7 @@ const Login = () => {
 
                     <button
                         type="submit"
-                        className="w-full btn-primary py-4 text-lg font-bold flex items-center justify-center border-none mt-4"
+                        className="w-full btn-primary py-4 text-md font-bold flex items-center justify-center border-none mt-4"
                         disabled={loading}
                     >
                         {loading ? (
@@ -99,9 +99,9 @@ const Login = () => {
                 </form>
 
                 <div className="mt-10 text-center">
-                    <p className="text-slate-600 font-medium">
+                    <p className="text-slate-600 font-small">
                         Don't have an account?{' '}
-                        <Link to="/register" className="text-blue-600 font-extrabold hover:underline">
+                        <Link to="/register" className="text-blue-600 font-bold hover:underline">
                             Register here
                         </Link>
                     </p>
