@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
-import { User, Mail, Lock, Eye, EyeOff, UserPlus } from 'lucide-react';
+import { User, Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import { authService } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 
@@ -45,11 +45,8 @@ const Register = () => {
         <div className="flex items-center justify-center min-h-screen auth-bg px-4 py-12">
             <div className="w-full max-w-md p-8 glass rounded-3xl shadow-2xl relative overflow-hidden group">
 
-                <div className="text-center mb-10">
-                    <h1 className="text-4xl font-black text-slate-900 tracking-tight">Create Account</h1>
-                    <p className="text-slate-500 mt-3 font-medium text-lg">
-                        Join <span className="text-blue-600 font-bold">Money Manager</span> family
-                    </p>
+                <div className="text-center mb-2">
+                    <h1 className="text-2xl font-black text-slate-900">Create Account</h1>
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
@@ -137,7 +134,7 @@ const Register = () => {
 
                     <button
                         type="submit"
-                        className="w-full btn-primary py-4 text-lg font-bold flex items-center justify-center border-none mt-4"
+                        className="w-full btn-primary py-4 text-md font-bold flex items-center justify-center border-none mt-4"
                         disabled={loading}
                     >
                         {loading ? (
@@ -149,9 +146,9 @@ const Register = () => {
                     </button>
                 </form>
 
-                <p className="mt-10 text-center text-slate-600 font-medium">
+                <p className="mt-4 text-center text-slate-600 font-small">
                     Already have an account?{' '}
-                    <Link to="/login" className="text-blue-600 font-extrabold hover:underline">
+                    <Link to="/login" className="text-blue-600 font-bold hover:underline">
                         Sign in
                     </Link>
                 </p>

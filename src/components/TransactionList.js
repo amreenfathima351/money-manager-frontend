@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Edit2, Trash2, Filter, TrendingUp, TrendingDown, Briefcase, User, Calendar, Tag, FileText, ArrowRightLeft, ChevronRight } from 'lucide-react';
+import { Edit2, Trash2, Filter, FileText, ChevronRight } from 'lucide-react';
 
 const TransactionList = ({ transactions, onEdit, onDelete, filters, setFilters }) => {
     const [showFilters, setShowFilters] = useState(false);
@@ -29,9 +29,9 @@ const TransactionList = ({ transactions, onEdit, onDelete, filters, setFilters }
             <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center space-x-3">
                     <div className="bg-white p-2 rounded-xl shadow-sm">
-                        <FileText className="w-6 h-6 text-blue-600" />
+                        <FileText className="w-4 h-4 text-blue-600" />
                     </div>
-                    <h2 className="text-2xl font-black text-slate-800 tracking-tight">Recent Transactions</h2>
+                    <h2 className="text-xl font-black text-slate-800">Recent Transactions</h2>
                 </div>
                 <button
                     onClick={() => setShowFilters(!showFilters)}
@@ -134,16 +134,12 @@ const TransactionList = ({ transactions, onEdit, onDelete, filters, setFilters }
                                                     t.type === 'expense' ? 'bg-rose-50 text-rose-600' :
                                                         'bg-blue-50 text-blue-600'
                                                 }`}>
-                                                {t.type === 'income' ? <TrendingUp className="w-5 h-5" /> :
-                                                    t.type === 'expense' ? <TrendingDown className="w-5 h-5" /> :
-                                                        <ArrowRightLeft className="w-5 h-5" />}
                                             </div>
                                             <div>
                                                 <span className="text-base font-bold text-slate-900 group-hover:text-blue-600 transition-colors block leading-none">
                                                     {t.description}
                                                 </span>
                                                 <div className="flex items-center mt-1 text-[10px] font-black uppercase tracking-tight text-slate-400">
-                                                    {t.division === 'office' ? <Briefcase className="w-3 h-3 mr-1" /> : <User className="w-3 h-3 mr-1" />}
                                                     {t.division}
                                                 </div>
                                             </div>
@@ -151,7 +147,6 @@ const TransactionList = ({ transactions, onEdit, onDelete, filters, setFilters }
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <div className="flex items-center text-sm font-bold text-slate-600 capitalize">
-                                            <Tag className="w-4 h-4 mr-2 text-slate-400" />
                                             {t.category}
                                         </div>
                                     </td>
@@ -172,7 +167,6 @@ const TransactionList = ({ transactions, onEdit, onDelete, filters, setFilters }
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <div className="flex items-center text-sm font-bold text-slate-500">
-                                            <Calendar className="w-4 h-4 mr-2 text-slate-300" />
                                             {formatDate(t.createdAt)}
                                         </div>
                                     </td>

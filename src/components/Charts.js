@@ -9,7 +9,7 @@ const COLORS = ['#0ea5e9', '#f43f5e', '#10b981', '#f59e0b', '#6366f1', '#8b5cf6'
 const Charts = ({ summary, catSummary }) => {
     const totalsData = [
         {
-            name: 'Financial Overview',
+            name: '',
             income: summary.income || 0,
             expense: summary.expense || 0,
         }
@@ -25,7 +25,7 @@ const Charts = ({ summary, catSummary }) => {
             <div className="glass p-6 rounded-2xl h-80">
                 <h3 className="text-lg font-bold text-slate-800 mb-4">Income vs Expense</h3>
                 <ResponsiveContainer width="100%" height="90%">
-                    <BarChart data={totalsData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                    <BarChart data={totalsData} margin={{ top: 10, right: 10, left: 0, bottom: 20 }}>
                         <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
                         <XAxis dataKey="name" hide />
                         <YAxis axisLine={false} tickLine={false} tick={{ fill: '#94a3b8', fontSize: 12 }} />
@@ -39,7 +39,6 @@ const Charts = ({ summary, catSummary }) => {
                                 backdropFilter: 'blur(8px)'
                             }}
                         />
-                        <Legend iconType="circle" />
                         <Bar dataKey="income" name="Income" fill="#10b981" radius={[6, 6, 0, 0]} barSize={40} />
                         <Bar dataKey="expense" name="Expense" fill="#f43f5e" radius={[6, 6, 0, 0]} barSize={40} />
                     </BarChart>

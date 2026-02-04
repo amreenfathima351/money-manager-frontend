@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
-import { Mail, Lock, Eye, EyeOff, LogIn } from 'lucide-react';
+import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { authService } from '../services/api';
 
@@ -33,12 +33,9 @@ const Login = () => {
             <div className="w-full max-w-md p-8 glass rounded-3xl relative overflow-hidden group">
                 {/* Decorative background glow */}
 
-                <div className="text-center mb-10">
+                <div className="text-center mb-2">
                     
                     <h1 className="text-2xl font-black text-slate-900">Welcome Back</h1>
-                    <p className="text-slate-500 mt-3 font-medium text-md">
-                        Sign in to <span className="text-blue-600 font-bold">Money Manager</span>
-                    </p>
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
@@ -98,7 +95,7 @@ const Login = () => {
                     </button>
                 </form>
 
-                <div className="mt-10 text-center">
+                <div className="mt-4 text-center">
                     <p className="text-slate-600 font-small">
                         Don't have an account?{' '}
                         <Link to="/register" className="text-blue-600 font-bold hover:underline">

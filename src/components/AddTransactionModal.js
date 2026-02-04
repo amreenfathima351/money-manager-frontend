@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, TrendingUp, TrendingDown, ArrowRightLeft } from 'lucide-react';
+import { X } from 'lucide-react';
 import { accountService } from '../services/api';
 import toast from 'react-hot-toast';
 
@@ -93,9 +93,9 @@ const AddTransactionModal = ({ isOpen, onClose, onSubmit, editData }) => {
 
                 <div className="p-1 mx-6 mt-6 bg-slate-100 rounded-xl flex gap-1">
                     {[
-                        { id: 'income', label: 'Income', icon: TrendingUp, color: 'text-emerald-600' },
-                        { id: 'expense', label: 'Expense', icon: TrendingDown, color: 'text-rose-600' },
-                        { id: 'transfer', label: 'Transfer', icon: ArrowRightLeft, color: 'text-blue-600' }
+                        { id: 'income', label: 'Income', color: 'text-emerald-600' },
+                        { id: 'expense', label: 'Expense', color: 'text-rose-600' },
+                        { id: 'transfer', label: 'Transfer', color: 'text-blue-600' }
                     ].map(tab => (
                         <button
                             key={tab.id}
@@ -108,7 +108,6 @@ const AddTransactionModal = ({ isOpen, onClose, onSubmit, editData }) => {
                                 }
                             }}
                         >
-                            <tab.icon className="w-3.5 h-3.5" />
                             {tab.label}
                         </button>
                     ))}

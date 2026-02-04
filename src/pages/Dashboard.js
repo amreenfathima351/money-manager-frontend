@@ -29,9 +29,7 @@ const Dashboard = () => {
 
     const fetchSummaryData = useCallback(async () => {
         try {
-            const hasCustomDates = filters.from || filters.to;
-            const params = hasCustomDates ? filters : { ...filters, period };
-
+            const params = { period };
             const [summaryRes, catRes] = await Promise.all([
                 transactionService.getSummary(params),
                 transactionService.getCategorySummary(params)
@@ -41,12 +39,19 @@ const Dashboard = () => {
         } catch (error) {
             console.error('Failed to fetch summary');
         }
-    }, [filters, period]);
+    }, [period]);
 
-    const fetchTransactionData = useCallback(async () => {
+    const fetchTransactionData = useCallback(async (customFilters) => {
         try {
-            const hasCustomDates = filters.from || filters.to;
-            const params = hasCustomDates ? filters : { ...filters, period };
+            const currentFilters = customFilters || filters;
+            const params = { ...currentFilters };
+            const hasCustomDates = params.from || params.to;
+
+            if (!hasCustomDates) {
+                params.period = period;
+            } else if (params.from && !params.to) {
+                params.to = new Date().toISOString().split('T')[0];
+            }
 
             const transRes = await transactionService.getAll(params);
             setTransactions(transRes.data);
@@ -64,6 +69,7 @@ const Dashboard = () => {
         }
     }, []);
 
+    // Effect for initial load and dashboard updates
     useEffect(() => {
         fetchSummaryData();
         fetchTransactionData();
@@ -210,26 +216,36 @@ const Dashboard = () => {
                                 <div className="bg-slate-50 p-4 rounded-full">
                                     <Plus className="w-8 h-8" />
                                 </div>
-                                <p className="font-bold text-sm">Set up your first account</p>
+                                <p className="font-bold text-sm">Create Your Account    </p>
                             </button>
                         </div>
                     )}
                 </div>
             </section>
-            <div className="space-y-10">
-                <SummaryCards summary={summary} />
-                <Charts summary={summary} catSummary={catSummary} />
-                <TransactionList
-                    transactions={transactions}
-                    onEdit={openEditModal}
-                    onDelete={handleDelete}
-                    filters={filters}
-                    setFilters={setFilters}
-                />
-            </div>
+            {accounts.length > 0 && (
+                <div className="space-y-10">
+                    <SummaryCards summary={summary} />
+                    <Charts summary={summary} catSummary={catSummary} />
+                    <TransactionList
+                        transactions={transactions}
+                        onEdit={openEditModal}
+                        onDelete={handleDelete}
+                        filters={filters}
+                        setFilters={setFilters}
+                    />
+                </div>
+            )}
 
             <button
-                onClick={() => { setEditData(null); setIsModalOpen(true); }}
+                onClick={() => {
+                    if (accounts.length === 0) {
+                        setIsAccountModalOpen(true);
+                        toast.error("Please create an account first");
+                    } else {
+                        setEditData(null);
+                        setIsModalOpen(true);
+                    }
+                }}
                 className="fixed bottom-8 right-8 w-14 h-14 bg-blue-600 hover:bg-blue-700 text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-all z-40"
             >
                 <Plus className="w-8 h-8" />

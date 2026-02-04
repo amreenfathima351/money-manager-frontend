@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Landmark, Wallet, CreditCard, PiggyBank } from 'lucide-react';
+import { X } from 'lucide-react';
 
 const AccountModal = ({ isOpen, onClose, onSubmit, editData }) => {
     const [formData, setFormData] = useState({
@@ -25,10 +25,10 @@ const AccountModal = ({ isOpen, onClose, onSubmit, editData }) => {
     }, [editData, isOpen]);
 
     const accountTypes = [
-        { id: 'bank', label: 'Bank', icon: Landmark },
-        { id: 'cash', label: 'Cash', icon: Wallet },
-        { id: 'credit', label: 'Credit Card', icon: CreditCard },
-        { id: 'savings', label: 'Savings', icon: PiggyBank },
+        { id: 'bank', label: 'Bank' },
+        { id: 'cash', label: 'Cash' },
+        { id: 'credit', label: 'Credit Card' },
+        { id: 'savings', label: 'Savings' },
     ];
 
     const handleSubmit = (e) => {
@@ -41,7 +41,7 @@ const AccountModal = ({ isOpen, onClose, onSubmit, editData }) => {
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4">
-            <div className="bg-white rounded-2xl w-full max-w-md shadow-2xl animate-in fade-in zoom-in duration-200">
+            <div className="bg-white rounded-2xl w-full max-w-md">
                 <div className="flex items-center justify-between p-6 border-b border-slate-100">
                     <h2 className="text-xl font-bold text-slate-900">
                         {editData ? 'Edit Account' : 'Add New Account'}
@@ -57,7 +57,7 @@ const AccountModal = ({ isOpen, onClose, onSubmit, editData }) => {
                         <input
                             type="text"
                             className="input-field"
-                            placeholder="e.g. HDFC Bank, Wallet"
+                            placeholder="Enter Account Name"
                             value={formData.name}
                             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                             required
@@ -69,7 +69,7 @@ const AccountModal = ({ isOpen, onClose, onSubmit, editData }) => {
                         <input
                             type="number"
                             className="input-field"
-                            placeholder="0.00"
+                            placeholder="Enter Initial Balance"
                             value={formData.balance}
                             onChange={(e) => setFormData({ ...formData, balance: e.target.value })}
                             required
@@ -78,25 +78,18 @@ const AccountModal = ({ isOpen, onClose, onSubmit, editData }) => {
 
                     <div>
                         <label className="block text-sm font-medium text-slate-700 mb-1">Account Type</label>
-                        <div className="grid grid-cols-2 gap-3">
-                            {accountTypes.map((type) => {
-                                const Icon = type.icon;
-                                return (
-                                    <button
-                                        key={type.id}
-                                        type="button"
-                                        className={`flex items-center space-x-3 p-3 rounded-xl border transition-all ${formData.type === type.id
-                                                ? 'border-blue-600 bg-blue-50 text-blue-600 shadow-sm'
-                                                : 'border-slate-200 text-slate-600 hover:bg-slate-50'
-                                            }`}
-                                        onClick={() => setFormData({ ...formData, type: type.id })}
-                                    >
-                                        <Icon className="w-5 h-5" />
-                                        <span className="text-sm font-semibold">{type.label}</span>
-                                    </button>
-                                );
-                            })}
-                        </div>
+                        <select
+                            className="input-field text-black"
+                            value={formData.type}
+                            onChange={(e) => setFormData({ ...formData, type: e.target.value })}
+                            required
+                        >
+                            {accountTypes.map((type) => (
+                                <option key={type.id} value={type.id}>
+                                    {type.label}
+                                </option>
+                            ))}
+                        </select>
                     </div>
 
                     <button type="submit" className="w-full btn-primary h-12 mt-6">

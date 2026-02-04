@@ -29,7 +29,7 @@ const SummaryCards = ({ summary }) => {
     return (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {cards.map((card, index) => (
-                <div key={index} className="glass p-6 rounded-2xl flex items-center space-x-4">
+                <div key={index} className="glass p-6 rounded-2xl flex items-center space-x-4 shadow-sm hover:shadow-md transition-all duration-200">
                     <div className={`${card.bg} p-3 rounded-xl`}>
                         <card.icon className={`w-6 h-6 ${card.color}`} />
                     </div>
