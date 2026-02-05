@@ -7,17 +7,13 @@ import { ArrowLeft, Mail } from 'lucide-react';
 const ForgotPassword = () => {
     const [email, setEmail] = useState('');
     const [loading, setLoading] = useState(false);
-    const [resetToken, setResetToken] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
         try {
-            const { data } = await authService.forgotPassword(email);
+            await authService.forgotPassword(email);
             toast.success('Reset instruction generated!');
-            if (data.token) {
-                setResetToken(data.token);
-            }
         } catch (error) {
             toast.error(error.response?.data?.message || 'Failed to request reset');
         } finally {

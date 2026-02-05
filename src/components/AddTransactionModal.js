@@ -16,6 +16,21 @@ const AddTransactionModal = ({ isOpen, onClose, onSubmit, editData }) => {
         toAccount: '',
     });
 
+    const fetchAccounts = useCallback(async () => {
+        try {
+            setLoading(true);
+            const res = await accountService.getAll();
+            setAccounts(res.data);
+            if (!editData && res.data.length > 0 && !formData.fromAccount) {
+                setFormData(prev => ({ ...prev, fromAccount: res.data[0]._id }));
+            }
+        } catch (error) {
+            toast.error('Failed to load accounts');
+        } finally {
+            setLoading(false);
+        }
+    }, [editData, formData.fromAccount]);
+
     useEffect(() => {
         if (isOpen) {
             fetchAccounts();
@@ -44,21 +59,6 @@ const AddTransactionModal = ({ isOpen, onClose, onSubmit, editData }) => {
             });
         }
     }, [editData, isOpen, accounts]);
-
-    const fetchAccounts = useCallback(async () => {
-        try {
-            setLoading(true);
-            const res = await accountService.getAll();
-            setAccounts(res.data);
-            if (!editData && res.data.length > 0 && !formData.fromAccount) {
-                setFormData(prev => ({ ...prev, fromAccount: res.data[0]._id }));
-            }
-        } catch (error) {
-            toast.error('Failed to load accounts');
-        } finally {
-            setLoading(false);
-        }
-    }, [editData, formData.fromAccount]);
 
     const categories = {
         income: ['salary', 'business', 'gift', 'other'],

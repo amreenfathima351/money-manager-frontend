@@ -57,6 +57,7 @@ const Dashboard = () => {
         }
     }, [period, filters.from, filters.to]);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const fetchTransactionData = useCallback(async (customFilters) => {
         try {
             const currentFilters = customFilters || filters;
