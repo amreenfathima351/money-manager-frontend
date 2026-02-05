@@ -1,70 +1,80 @@
-# Getting Started with Create React App
+# Money Manager
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Money Manager** is a comprehensive, full-stack personal finance application designed to help users take complete control of their financial life. It provides a centralized platform to manage multiple accounts, track diverse income/expense streams, and gain actionable insights through data visualization.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+### The Problem it Solves
+Managing personal finances across multiple bank accounts, credit cards, and cash holdings can be overwhelming. Standard banking apps only show one side of the story, making it difficult for users to:
+*   **See the "Big Picture"**: Tracking net worth across varied platforms is manual and tedious.
+*   **Monitor Spending Habits**: Understanding exactly where money goes (e.g., food vs. shopping) often requires complex spreadsheets.
+*   **Manage Inter-Account Transfers**: Keeping track of money moving between self-owned accounts (like a bank withdrawal to cash) is rarely handled well by automated tools.
+*   **Partition Life**: Most tools don't differentiate between **Personal** and **Office/Professional** expenses in one view.
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### The Solution
+**Money Manager** solves these challenges by providing a premium, unified dashboard that acts as a financial command center:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+*   **Multi-Account Unified View**: Manage Bank, Cash, Credit Card, and Savings accounts in one place with real-time balance tracking.
+*   **Intuitive Transaction Logging**: Log Income, Expenses, and Transfers with just a few clicks.
+*   **Smart Date Filtering**: Instantly toggle between **Today, Weekly, Monthly,** and **Yearly** views, or set custom date ranges to find specific data.
+*   **Visual Analytics**: Interactive charts powered by `Recharts` provide a visual breakdown of spending by category, helping users identify saving opportunities.
+*   **Division Control**: Tag every transaction as either "Personal" or "Office" to keep financial lives separate but organized.
+*   **Safety Guards**: Built-in logic prevents "negative balance" errors by validating account limits before allowing expenses or transfers.
+*   **Secure & Private**: Full JWT-based authentication ensures that your financial data is accessible only to you.
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Tech Stack
+*   **Frontend**: React.js with Tailwind CSS for a sleek, responsive "Glassmorphism" UI.
+*   **Backend**: Node.js & Express.js REST API.
+*   **Database**: MongoDB (NoSQL) for flexible transaction and account storage.
+*   **Icons & Animations**: Lucide-react for iconography and Framer Motion for smooth transitions.
+*   **Charts**: Recharts for dynamic data visualization.
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Key Features
+1.  **Dynamic Dashboard Summary**: Real-time calculation of Total Income, Total Expense, and Current Balance based on active filters.
+2.  **Category Smart-Select**: Context-aware category suggestions (e.g., showing 'Salary' for Income but 'Food/Fuel' for Expenses).
+3.  **Account Transfer Logic**: Automatically deducts from one account and adds to another in a single atomic transaction.
+4.  **Security Measures**: Secure password hashing and protected API routes.
+5.  **Responsive Design**: A premium look and feel that works perfectly on both Desktop and Mobile devices.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Getting Started
 
-### `npm run eject`
+### Prerequisites
+- Node.js (v14 or higher)
+- MongoDB account
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Installation
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/amreenfathima351/money-manager-frontend.git
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+2. **Install Frontend Dependencies**
+   ```bash
+   cd money-manager-frontend
+   npm install
+   ```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+3. **Configure Environment Variables**
+   Create a `.env` file in the root directory and add:
+   ```env
+   REACT_APP_BACKEND_URL=your_backend_url
+   ```
 
-## Learn More
+4. **Run the Application**
+   ```bash
+   npm start
+   ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 📄 License
+Distributed under the MIT License.
