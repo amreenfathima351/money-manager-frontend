@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { X } from 'lucide-react';
 import { accountService } from '../services/api';
 import toast from 'react-hot-toast';
@@ -20,7 +20,7 @@ const AddTransactionModal = ({ isOpen, onClose, onSubmit, editData }) => {
         if (isOpen) {
             fetchAccounts();
         }
-    }, [isOpen]);
+    }, [isOpen, fetchAccounts]);
 
     useEffect(() => {
         if (editData) {
@@ -45,7 +45,7 @@ const AddTransactionModal = ({ isOpen, onClose, onSubmit, editData }) => {
         }
     }, [editData, isOpen, accounts]);
 
-    const fetchAccounts = async () => {
+    const fetchAccounts = useCallback(async () => {
         try {
             setLoading(true);
             const res = await accountService.getAll();
@@ -58,7 +58,7 @@ const AddTransactionModal = ({ isOpen, onClose, onSubmit, editData }) => {
         } finally {
             setLoading(false);
         }
-    };
+    }, [editData, formData.fromAccount]);
 
     const categories = {
         income: ['salary', 'business', 'gift', 'other'],
