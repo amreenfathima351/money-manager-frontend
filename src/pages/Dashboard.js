@@ -55,7 +55,7 @@ const Dashboard = () => {
         } catch (error) {
             console.error('Failed to fetch summary');
         }
-    }, [period, filters.from, filters.to]);
+    }, [period, filters]);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const fetchTransactionData = useCallback(async (customFilters) => {
