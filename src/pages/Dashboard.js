@@ -15,7 +15,7 @@ const Dashboard = () => {
     const [catSummary, setCatSummary] = useState([]);
     const [transactions, setTransactions] = useState([]);
     const [accounts, setAccounts] = useState([]);
-    const [period, setPeriod] = useState('monthly');
+    const [period, setPeriod] = useState('daily');
     const [filters, setFilters] = useState({
         type: '',
         category: '',
@@ -29,7 +29,23 @@ const Dashboard = () => {
 
     const fetchSummaryData = useCallback(async () => {
         try {
-            const params = { period };
+            const params = {};
+            const hasCustomDates = filters.from || filters.to;
+
+            if (!hasCustomDates) {
+                params.period = period;
+            } else {
+                if (filters.from) params.from = filters.from;
+                if (filters.to) params.to = filters.to;
+                else if (filters.from && !filters.to) {
+                    params.to = new Date().toISOString().split('T')[0];
+                }
+            }
+
+            console.log('📊 Fetching Summary Data with params:', params);
+            console.log('📅 Current period:', period);
+            console.log('📅 Custom filters:', filters);
+
             const [summaryRes, catRes] = await Promise.all([
                 transactionService.getSummary(params),
                 transactionService.getCategorySummary(params)
@@ -39,7 +55,7 @@ const Dashboard = () => {
         } catch (error) {
             console.error('Failed to fetch summary');
         }
-    }, [period]);
+    }, [period, filters.from, filters.to]);
 
     const fetchTransactionData = useCallback(async (customFilters) => {
         try {
@@ -53,8 +69,11 @@ const Dashboard = () => {
                 params.to = new Date().toISOString().split('T')[0];
             }
 
+            console.log('📋 Fetching Transaction Data with params:', params);
+
             const transRes = await transactionService.getAll(params);
             setTransactions(transRes.data);
+            console.log('📋 Received transactions:', transRes.data.length, 'items');
         } catch (error) {
             console.error('Failed to fetch transactions');
         }
@@ -124,6 +143,16 @@ const Dashboard = () => {
         setIsModalOpen(true);
     };
 
+    const handlePeriodChange = (newPeriod) => {
+        setPeriod(newPeriod);
+        // Clear custom date filters when switching to period-based view
+        setFilters(prev => ({
+            ...prev,
+            from: '',
+            to: ''
+        }));
+    };
+
     const getAccountIcon = (type) => {
         switch (type) {
             case 'bank': return Landmark;
@@ -138,17 +167,17 @@ const Dashboard = () => {
             <header className="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-4">
                 <div>
                     <h1 className="text-3xl font-extrabold text-slate-900">Hello, {user?.name}!</h1>
-                    <p className="text-slate-500">Welcome to your Money Manager dashboard.</p>
                 </div>
                 <div className="flex items-center space-x-4">
                     <select
                         value={period}
-                        onChange={(e) => setPeriod(e.target.value)}
+                        onChange={(e) => handlePeriodChange(e.target.value)}
                         className="input-field py-2 text-black font-semibold bg-white cursor-pointer"
                     >
-                        <option value="weekly">Weekly View</option>
-                        <option value="monthly">Monthly View</option>
-                        <option value="yearly">Yearly View</option>
+                        <option value="daily">Today</option>
+                        <option value="weekly">Weekly</option>
+                        <option value="monthly">Monthly</option>
+                        <option value="yearly">Yearly</option>
                     </select>
                     <button
                         onClick={logout}

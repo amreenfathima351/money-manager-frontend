@@ -66,14 +66,56 @@ const AddTransactionModal = ({ isOpen, onClose, onSubmit, editData }) => {
         transfer: []
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (activeTab === 'transfer' && formData.fromAccount === formData.toAccount) {
             return toast.error('Source and destination accounts must be different');
         }
 
-        onSubmit({ ...formData, type: activeTab });
+        // Ensure amount is a number and clean up the data
+        const submitData = {
+            ...formData,
+            type: activeTab,
+            amount: parseFloat(formData.amount)
+        };
+
+        // Remove toAccount if not a transfer
+        if (activeTab !== 'transfer') {
+            delete submitData.toAccount;
+        }
+
+        // Check if account has sufficient balance for expense or transfer
+        if (activeTab === 'expense' || activeTab === 'transfer') {
+            // Fetch fresh account data to ensure we have the latest balance
+            try {
+                const res = await accountService.getAll();
+                const freshAccounts = res.data;
+                const fromAccount = freshAccounts.find(acc => acc._id === formData.fromAccount);
+
+                if (fromAccount) {
+                    let availableBalance = fromAccount.balance;
+
+                    // If editing the same account with same transaction type, add back the original amount
+                    if (editData && editData.fromAccount?._id === formData.fromAccount && editData.type === activeTab) {
+                        // Add back the original amount since it will be replaced
+                        availableBalance += parseFloat(editData.amount);
+                    }
+
+                    // Check if the new transaction amount exceeds available balance
+                    if (availableBalance < submitData.amount) {
+                        return toast.error(
+                            `Insufficient balance in ${fromAccount.name}.`
+                        );
+                    }
+                }
+            } catch (error) {
+                toast.error('Failed to verify account balance');
+                return;
+            }
+        }
+
+        onSubmit(submitData);
         onClose();
     };
 
@@ -209,8 +251,7 @@ const AddTransactionModal = ({ isOpen, onClose, onSubmit, editData }) => {
 
                     <div>
                         <label className="block text-sm font-medium text-slate-700 mb-1">Description</label>
-                        <input
-                            type="text"
+                        <textarea
                             className="input-field"
                             placeholder="What was this for?"
                             value={formData.description}

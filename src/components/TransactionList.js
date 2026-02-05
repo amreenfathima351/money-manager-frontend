@@ -31,13 +31,13 @@ const TransactionList = ({ transactions, onEdit, onDelete, filters, setFilters }
                     <div className="bg-white p-2 rounded-xl shadow-sm">
                         <FileText className="w-4 h-4 text-blue-600" />
                     </div>
-                    <h2 className="text-xl font-black text-slate-800">Recent Transactions</h2>
+                    <h2 className="text-lg font-black text-slate-800">Recent Transactions</h2>
                 </div>
                 <button
                     onClick={() => setShowFilters(!showFilters)}
                     className={`flex items-center space-x-2 px-4 py-2 rounded-xl font-bold transition-all ${showFilters
-                        ? 'bg-blue-600 text-white shadow-lg shadow-blue-200'
-                        : 'bg-white text-slate-600 hover:bg-slate-50 border border-slate-200'
+                        ? 'bg-blue-600 text-white shadow-lg shadow-blue-200 text-md'
+                        : 'bg-white text-slate-600 border border-slate-200 text-md' 
                         }`}
                 >
                     <Filter className="w-4 h-4" />
@@ -46,13 +46,13 @@ const TransactionList = ({ transactions, onEdit, onDelete, filters, setFilters }
             </div>
 
             {showFilters && (
-                <div className="glass p-6 rounded-3xl mb-8 animate-in fade-in slide-in-from-top-4 duration-300">
+                <div className="glass p-6 rounded-3xl mb-8">
                     <div className="flex flex-row gap-4 overflow-x-auto">
                         <div className="flex-1 space-y-2">
-                            <label className="text-xs font-black text-slate-500 uppercase tracking-widest ml-1">Type</label>
+                            <label className="text-xs font-black text-slate-500 ml-1">Type</label>
                             <select
                                 name="type"
-                                className="input-field py-3 text-black font-bold bg-white w-full"
+                                className="input-field py-1 text-xs font-bold bg-white w-full"
                                 value={filters.type}
                                 onChange={handleFilterChange}
                             >
@@ -63,10 +63,10 @@ const TransactionList = ({ transactions, onEdit, onDelete, filters, setFilters }
                             </select>
                         </div>
                         <div className="flex-1 space-y-2">
-                            <label className="text-xs font-black text-slate-500 uppercase tracking-widest ml-1">Division</label>
+                            <label className="text-xs font-black text-slate-500 ml-1">Division</label>
                             <select
                                 name="division"
-                                className="input-field py-3 text-black font-bold bg-white w-full"
+                                className="input-field py-1 text-xs font-bold bg-white w-full"
                                 value={filters.division}
                                 onChange={handleFilterChange}
                             >
@@ -76,10 +76,10 @@ const TransactionList = ({ transactions, onEdit, onDelete, filters, setFilters }
                             </select>
                         </div>
                         <div className="flex-1 space-y-2">
-                            <label className="text-xs font-black text-slate-500 uppercase tracking-widest ml-1">Category</label>
+                            <label className="text-xs font-black text-slate-500 ml-1">Category</label>
                             <select
                                 name="category"
-                                className="input-field py-3 text-black font-bold bg-white w-full"
+                                className="input-field py-1 text-xs font-bold bg-white w-full"
                                 value={filters.category}
                                 onChange={handleFilterChange}
                             >
@@ -88,23 +88,23 @@ const TransactionList = ({ transactions, onEdit, onDelete, filters, setFilters }
                             </select>
                         </div>
                         <div className="flex-1 space-y-2">
-                            <label className="text-xs font-black text-slate-500 uppercase tracking-widest ml-1">From Date</label>
+                            <label className="text-xs font-black text-slate-500 ml-1">From Date</label>
                             <input
                                 type="date"
                                 name="from"
                                 value={filters.from}
-                                className="input-field py-3 text-sm text-black font-bold bg-white w-full"
+                                className="input-field py-1 text-xs text-black font-bold bg-white w-full"
                                 onChange={handleFilterChange}
                             />
                         </div>
                         <div className="flex-1 space-y-2">
-                            <label className="text-xs font-black text-slate-500 uppercase tracking-widest ml-1">To Date</label>
+                            <label className="text-xs font-black text-slate-500 ml-1">To Date</label>
                             <input
                                 type="date"
                                 name="to"
                                 value={filters.to}
                                 min={filters.from}
-                                className="input-field py-3 text-sm text-black font-bold bg-white w-full"
+                                className="input-field py-1 text-xs text-black font-bold bg-white w-full"
                                 onChange={handleFilterChange}
                             />
                         </div>
@@ -117,29 +117,24 @@ const TransactionList = ({ transactions, onEdit, onDelete, filters, setFilters }
                     <table className="w-full text-left border-collapse">
                         <thead>
                             <tr className="bg-slate-50/50">
-                                <th className="px-6 py-5 text-sm font-black text-slate-900 uppercase tracking-wider border-b border-slate-100">Transaction</th>
-                                <th className="px-6 py-5 text-sm font-black text-slate-900 uppercase tracking-wider border-b border-slate-100">Category</th>
-                                <th className="px-6 py-5 text-sm font-black text-slate-900 uppercase tracking-wider border-b border-slate-100">Account</th>
-                                <th className="px-6 py-5 text-sm font-black text-slate-900 uppercase tracking-wider border-b border-slate-100">Date</th>
-                                <th className="px-6 py-5 text-sm font-black text-slate-900 uppercase tracking-wider border-b border-slate-100 text-right">Amount</th>
-                                <th className="px-6 py-5 text-sm font-black text-slate-900 uppercase tracking-wider border-b border-slate-100 text-center">Actions</th>
+                                <th className="px-6 py-5 text-sm font-black text-slate-900 border-b border-slate-100">Transaction</th>
+                                <th className="px-6 py-5 text-sm font-black text-slate-900 border-b border-slate-100">Category</th>
+                                <th className="px-6 py-5 text-sm font-black text-slate-900 border-b border-slate-100">Account</th>
+                                <th className="px-6 py-5 text-sm font-black text-slate-900 border-b border-slate-100">Date</th>
+                                <th className="px-6 py-5 text-sm font-black text-slate-900 border-b border-slate-100 text-right">Amount</th>
+                                <th className="px-6 py-5 text-sm font-black text-slate-900 border-b border-slate-100 text-center">Actions</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-50">
                             {transactions.map((t) => (
-                                <tr key={t._id} className="hover:bg-blue-50/30 transition-colors group">
+                                <tr key={t._id} className="">
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <div className="flex items-center space-x-4">
-                                            <div className={`w-10 h-10 rounded-xl flex items-center justify-center shadow-sm ${t.type === 'income' ? 'bg-emerald-50 text-emerald-600' :
-                                                    t.type === 'expense' ? 'bg-rose-50 text-rose-600' :
-                                                        'bg-blue-50 text-blue-600'
-                                                }`}>
-                                            </div>
                                             <div>
-                                                <span className="text-base font-bold text-slate-900 group-hover:text-blue-600 transition-colors block leading-none">
+                                                <span className="text-base font-bold text-slate-900">
                                                     {t.description}
                                                 </span>
-                                                <div className="flex items-center mt-1 text-[10px] font-black uppercase tracking-tight text-slate-400">
+                                                <div className="flex items-center mt-1 text-[10px] font-bold text-slate-400 capitalize">
                                                     {t.division}
                                                 </div>
                                             </div>
@@ -152,13 +147,13 @@ const TransactionList = ({ transactions, onEdit, onDelete, filters, setFilters }
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <div className="flex items-center space-x-2">
-                                            <span className="px-2.5 py-1 bg-slate-100 rounded-lg text-xs font-black text-slate-600 border border-slate-200">
+                                            <span className="px-2.5 py-1 text-xs font-black text-slate-600">
                                                 {t.fromAccount?.name || 'Deleted'}
                                             </span>
                                             {t.type === 'transfer' && (
                                                 <>
                                                     <ChevronRight className="w-3 h-3 text-slate-300" />
-                                                    <span className="px-2.5 py-1 bg-slate-100 rounded-lg text-xs font-black text-slate-600 border border-slate-200">
+                                                    <span className="px-2.5 py-1 rounded-lg text-xs font-black text-slate-600">
                                                         {t.toAccount?.name || 'Deleted'}
                                                     </span>
                                                 </>
@@ -171,11 +166,11 @@ const TransactionList = ({ transactions, onEdit, onDelete, filters, setFilters }
                                         </div>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap text-right">
-                                        <span className={`text-lg font-black ${t.type === 'income' ? 'text-emerald-600' :
+                                        <span className={`text-md font-black ${t.type === 'income' ? 'text-emerald-600' :
                                                 t.type === 'expense' ? 'text-rose-600' :
                                                     'text-blue-600'
                                             }`}>
-                                            {t.type === 'income' ? '+' : t.type === 'expense' ? '-' : '⇄'}₹{t.amount.toLocaleString()}
+                                                ₹{t.amount.toLocaleString()}
                                         </span>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap text-center">
